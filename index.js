@@ -7,25 +7,24 @@ app.use(cors());
 
 const user = [];
 const usersTweets = [];
+let userAvatar = ""
 
 app.post("/sign-up", (req, res) => {
-    const username = req.params.username;
-    const avatar = req.params.avatar;
-    user.push({username: username, avatar: avatar});
+    const {username, avatar} = req.body;
+    user.push({username, avatar});
     res.status(200).send("Ok");
 })
 
 app.post("/tweets", (req, res) => {
-    const name = req.params.username;
-    const tweet = req.params.tweet;
-    const userInfo = user.avatar;
-    usersTweets.push({name: name, tweet: tweet});
+    const {username, tweet} = req.body;
+    userAvatar = user.find(element => element.username === username);
+    usersTweets.push({username, avatar: userAvatar.avatar, tweet});
     res.status(200).send("Ok");
 })
-// avatar: userInfo
-app.get("/tweets", (req, res) => {
-    res.send(usersTweets);
-})
 
+app.get("/tweets", (req, res) => {
+    const lastTweets = usersTweets.slice(-10);
+    res.send(lastTweets);
+})
 
 app.listen(5000);
