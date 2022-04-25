@@ -4,7 +4,7 @@ function signUp() {
   const username = document.querySelector("#username").value;
   const picture = document.querySelector("#picture").value;
 
-  axios.post("http://localhost:5501/sign-up", {
+  axios.post("http://localhost:5000/sign-up", {
     username,
     avatar: picture
   }).then(() => {
@@ -14,7 +14,7 @@ function signUp() {
 }
 
 function loadTweets() {
-  axios.get("http://localhost:5501/tweets").then(res => {
+  axios.get("http://localhost:5000/tweets").then(res => {
     const tweets = res.data;
     let tweetsHtml = '';
 
